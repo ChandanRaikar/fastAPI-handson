@@ -1,5 +1,7 @@
+from typing import Optional
 from fastapi import FastAPI,Body
 from pydantic import BaseModel, Field
+from pydantic_core.core_schema import json_schema
 
 app = FastAPI()
 
@@ -20,12 +22,24 @@ class Book:
         self.price = price
 
 class BookRequest(BaseModel):
-    id: int
+    id: Optional[int] = Field(description="ID is not required", default=None)
     type:str = Field(min_length=3)
     author:str = Field(min_length=1)
     description:str = Field(min_length=1, max_length=100)
     rating:float= Field(gt=0,lt=6)
     price:float
+
+    model_config = {
+        "json_schema_extra":{
+            "example":{ 
+                "type": "Romance",
+                "author": "Romeo",
+                "description": "French kiss",
+                "rating": 3.34,
+                "price": 105
+            }
+        }
+    }
 
 BOOKS = [
     Book(1,'Science','Chad trevor','Astronomi','4.68','50'),
