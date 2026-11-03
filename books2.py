@@ -31,10 +31,10 @@ class BookRequest(BaseModel):
 
     model_config = {
         "json_schema_extra":{
-            "example":{ 
+            "example":{
                 "type": "Romance",
                 "author": "Romeo",
-                "description": "French kiss",
+                "description": "French Biryani",
                 "rating": 3.34,
                 "price": 105
             }
